@@ -3,7 +3,9 @@ package model;
 import java.io.Serializable;
 import java.time.LocalDate;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -153,6 +155,25 @@ public class Usuario implements Serializable {
             perfilProperty = new SimpleStringProperty(perfil);
         }
         return perfilProperty;
+    }
+    
+    private transient StringProperty emailProperty;
+    
+    public StringProperty emailProperty() {
+        if (emailProperty == null) {
+            emailProperty = new SimpleStringProperty(email);
+        }
+        return emailProperty;
+    }
+    
+    private transient ObjectProperty<LocalDate> aniversarioProperty;
+    
+    public ObjectProperty<LocalDate> aniversarioProperty() {
+        if (aniversarioProperty == null) {
+            aniversarioProperty = new SimpleObjectProperty(aniversario);
+            
+        }
+        return aniversarioProperty;
     }
 
     public String getEmail() {
