@@ -1,12 +1,14 @@
 package controller;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -42,6 +44,12 @@ public class CadastroUsuariosController {
 
     @FXML
     private TextField txtTelefone;
+    
+    @FXML
+    private TextField txtEmail;
+    
+    @FXML
+    private DatePicker dataAniversario;
 
     @FXML
     void btnExcluirClick(ActionEvent event) throws SQLException {
@@ -65,11 +73,13 @@ public class CadastroUsuariosController {
         if(usuarioSelecionado == null){
             incluir(txtNome.getText(),
             txtTelefone.getText(), txtLogin.getText(),
-            txtSenha.getText(), cbPerfil.getValue());
+            txtSenha.getText(), cbPerfil.getValue(),
+            txtEmail.getText(), dataAniversario.getValue());
         } else {
             alterar(usuarioSelecionado.getId(), txtNome.getText(),
                     txtTelefone.getText(), txtLogin.getText(),
-                    txtSenha.getText(), cbPerfil.getValue());
+                    txtSenha.getText(), cbPerfil.getValue(),
+                    txtEmail.getText(), dataAniversario.getValue());
         }
     }
 
@@ -97,9 +107,9 @@ public class CadastroUsuariosController {
     }
 
     void incluir(String nome, String fone, 
-        String login, String senha, String perfil) throws SQLException {
+        String login, String senha, String perfil, String email, LocalDate aniversario) throws SQLException {
         Usuario usuario = new Usuario(nome, fone, login,
-        senha, perfil);
+        senha, perfil, email, aniversario);
         new UsuarioDAO().salvar(usuario);
         if(onUsuarioSalvo != null){
             onUsuarioSalvo.run();
@@ -110,9 +120,9 @@ public class CadastroUsuariosController {
     }
     
     void alterar(int id, String nome, String fone, String login,
-            String senha, String perfil) throws SQLException{
+            String senha, String perfil, String email, LocalDate aniversario) throws SQLException{
         Usuario usuarioAlterado = new Usuario(id, nome, fone, login,
-        senha, perfil);
+        senha, perfil, email, aniversario);
         new UsuarioDAO().alterar(usuarioAlterado);
         if(onUsuarioSalvo != null){
             onUsuarioSalvo.run();
