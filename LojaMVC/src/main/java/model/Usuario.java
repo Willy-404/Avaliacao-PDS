@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,25 +15,32 @@ public class Usuario implements Serializable {
     private String login;
     private String senha;
     private String perfil;
+    private String email;
+    private LocalDate aniversario;
 
     // Método construtor com todos os parâmetros
-    public Usuario(int id, String nome, String fone, String login, String senha, String perfil) {
+    public Usuario(int id, String nome, String fone, String login, String senha, String perfil, String email, LocalDate aniversario) {
         this.id = id;
         this.nome = nome;
         this.fone = fone;
         this.login = login;
         this.senha = senha;
         this.perfil = perfil;
+        this.email = email;
+        this.aniversario = aniversario;
     }
 
     // Método construtor com todos os parâmetros menos ID
-    public Usuario(String nome, String fone, String login, String senha, String perfil) {
+    public Usuario(String nome, String fone, String login, String senha, String perfil, String email, LocalDate aniversario) {
         this.nome = nome;
         this.fone = fone;
         this.login = login;
         this.senha = senha;
         this.perfil = perfil;
+        this.email = email;
+        this.aniversario = aniversario;
     }
+    
 
     // Método construtor para o login
     public Usuario(String login, String senha, String perfil) {
@@ -146,5 +154,71 @@ public class Usuario implements Serializable {
         }
         return perfilProperty;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDate getAniversario() {
+        return aniversario;
+    }
+
+    public void setAniversario(LocalDate aniversario) {
+        this.aniversario = aniversario;
+    }
+
+    public IntegerProperty getIdProperty() {
+        return idProperty;
+    }
+
+    public void setIdProperty(IntegerProperty idProperty) {
+        this.idProperty = idProperty;
+    }
+
+    public StringProperty getNomeProperty() {
+        return nomeProperty;
+    }
+
+    public void setNomeProperty(StringProperty nomeProperty) {
+        this.nomeProperty = nomeProperty;
+    }
+
+    public StringProperty getFoneProperty() {
+        return foneProperty;
+    }
+
+    public void setFoneProperty(StringProperty foneProperty) {
+        this.foneProperty = foneProperty;
+    }
+
+    public StringProperty getLoginProperty() {
+        return loginProperty;
+    }
+
+    public void setLoginProperty(StringProperty loginProperty) {
+        this.loginProperty = loginProperty;
+    }
+
+    public StringProperty getSenhaProperty() {
+        return senhaProperty;
+    }
+
+    public void setSenhaProperty(StringProperty senhaProperty) {
+        this.senhaProperty = senhaProperty;
+    }
+
+    public StringProperty getPerfilProperty() {
+        return perfilProperty;
+    }
+
+    public void setPerfilProperty(StringProperty perfilProperty) {
+        this.perfilProperty = perfilProperty;
+    }
+    
+    
 
 }
