@@ -170,7 +170,7 @@ public class Usuario implements Serializable {
     
     public ObjectProperty<LocalDate> aniversarioProperty() {
         if (aniversarioProperty == null) {
-            aniversarioProperty = new SimpleObjectProperty(aniversario);
+            aniversarioProperty = new SimpleObjectProperty<LocalDate>(aniversario);
             
         }
         return aniversarioProperty;
