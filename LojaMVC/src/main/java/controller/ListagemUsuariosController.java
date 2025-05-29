@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -122,14 +123,14 @@ public class ListagemUsuariosController {
             colunaEmail.setCellValueFactory(u
                     -> u.getValue().emailProperty());
 
-            TableColumn<Usuario, String> colunaAniversario
+            TableColumn<Usuario, LocalDate> colunaAniversario
                     = new TableColumn<>("Aniversario");
             colunaAniversario.setCellValueFactory(u
                     -> u.getValue().aniversarioProperty());
 
             tabelaUsuarios.getColumns().addAll(colunaID,
                     colunaNome, colunaFone, colunaLogin,
-                    colunaPerfil, colunaEmail);
+                    colunaPerfil, colunaEmail, colunaAniversario);
 
 //            tabelaUsuarios.setItems(lista);
             FilteredList<Usuario> listaFiltrada = new
