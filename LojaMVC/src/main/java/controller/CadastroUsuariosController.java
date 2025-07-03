@@ -38,6 +38,12 @@ public class CadastroUsuariosController {
 
     @FXML
     private TextField txtNome;
+    
+    @FXML
+    private TextField txtEmail;
+   
+    @FXML
+    private DatePicker dpAniver;
 
     @FXML
     private PasswordField txtSenha;
@@ -45,11 +51,7 @@ public class CadastroUsuariosController {
     @FXML
     private TextField txtTelefone;
     
-    @FXML
-    private TextField txtEmail;
-    
-    @FXML
-    private DatePicker dataAniversario;
+    AlertaUtil alerta = new AlertaUtil();
 
     @FXML
     void btnExcluirClick(ActionEvent event) throws SQLException {
@@ -70,16 +72,37 @@ public class CadastroUsuariosController {
 
     @FXML
     void btnIncluirAlterarClick(ActionEvent event) throws SQLException {
+        if(txtNome.getText().isEmpty()){
+           alerta.mostrarAviso("Campo Vazio", "Campo nome está vazio, por favor preencher com um valor válido!");
+           return;
+        } else if(txtTelefone.getText().isEmpty()) {
+           alerta.mostrarAviso("Campo Vazio", "Campo telefone está vazio, por favor preencher com um valor válido!");
+           return; 
+        }else if(txtLogin.getText().isEmpty()) {
+           alerta.mostrarAviso("Campo Vazio", "Campo login está vazio, por favor preencher com um valor válido!");
+           return; 
+        }else if(txtSenha.getText().isEmpty()) {
+           alerta.mostrarAviso("Campo Vazio", "Campo senha está vazio, por favor preencher com um valor válido!");
+           return; 
+        }else if(cbPerfil.getSelectionModel().getSelectedItem().isEmpty()) {
+           alerta.mostrarAviso("Campo Vazio", "Campo perfil está vazio, por favor preencher com um valor válido!");
+           return; 
+        }else if(txtEmail.getText().isEmpty()) {
+           alerta.mostrarAviso("Campo Vazio", "Campo email está vazio, por favor preencher com um valor válido!");
+           return; 
+        }else if(dpAniver.getValue() == null) {
+           alerta.mostrarAviso("Campo Vazio", "Campo aniversário está vazio, por favor preencher com um valor válido!");
+           return; 
+        }
+        
         if(usuarioSelecionado == null){
             incluir(txtNome.getText(),
             txtTelefone.getText(), txtLogin.getText(),
-            txtSenha.getText(), cbPerfil.getValue(),
-            txtEmail.getText(), dataAniversario.getValue());
+            txtSenha.getText(), cbPerfil.getValue(), txtEmail.getText(), dpAniver.getValue());
         } else {
             alterar(usuarioSelecionado.getId(), txtNome.getText(),
                     txtTelefone.getText(), txtLogin.getText(),
-                    txtSenha.getText(), cbPerfil.getValue(),
-                    txtEmail.getText(), dataAniversario.getValue());
+                    txtSenha.getText(), cbPerfil.getValue(), txtEmail.getText(), dpAniver.getValue());
         }
     }
 
@@ -103,6 +126,8 @@ public class CadastroUsuariosController {
             txtSenha.setText(user.getSenha());
             cbPerfil.getItems().addAll("admin", "user");
             cbPerfil.setValue(user.getPerfil());
+            txtEmail.setText(user.getEmail());
+            dpAniver.setValue(user.getAniversario());
         }
     }
 
@@ -120,7 +145,7 @@ public class CadastroUsuariosController {
     }
     
     void alterar(int id, String nome, String fone, String login,
-            String senha, String perfil, String email, LocalDate aniversario) throws SQLException{
+            String senha, String perfil,  String email, LocalDate aniversario) throws SQLException{
         Usuario usuarioAlterado = new Usuario(id, nome, fone, login,
         senha, perfil, email, aniversario);
         new UsuarioDAO().alterar(usuarioAlterado);

@@ -1,3 +1,4 @@
+
 package model;
 
 import java.io.Serializable;
@@ -42,7 +43,6 @@ public class Usuario implements Serializable {
         this.email = email;
         this.aniversario = aniversario;
     }
-    
 
     // Método construtor para o login
     public Usuario(String login, String senha, String perfil) {
@@ -121,6 +121,22 @@ public class Usuario implements Serializable {
         return nomeProperty;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDate getAniversario() {
+        return aniversario;
+    }
+
+    public void setAniversario(LocalDate aniversario) {
+        this.aniversario = aniversario;
+    }
+
     private transient StringProperty foneProperty;
 
     public StringProperty foneProperty() {
@@ -158,7 +174,6 @@ public class Usuario implements Serializable {
     }
     
     private transient StringProperty emailProperty;
-    
     public StringProperty emailProperty() {
         if (emailProperty == null) {
             emailProperty = new SimpleStringProperty(email);
@@ -166,80 +181,12 @@ public class Usuario implements Serializable {
         return emailProperty;
     }
     
-    private transient ObjectProperty<LocalDate> aniversarioProperty;
-    
-    public ObjectProperty<LocalDate> aniversarioProperty() {
-        if (aniversarioProperty == null) {
-            aniversarioProperty = new SimpleObjectProperty<LocalDate>(aniversario);
-            
+    private transient ObjectProperty<LocalDate> aniverProperty;
+    public ObjectProperty<LocalDate> aniverProperty() {
+        if (aniverProperty == null) {
+            aniverProperty = new SimpleObjectProperty<LocalDate>(aniversario);
         }
-        return aniversarioProperty;
+        return aniverProperty;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDate getAniversario() {
-        return aniversario;
-    }
-
-    public void setAniversario(LocalDate aniversario) {
-        this.aniversario = aniversario;
-    }
-
-    public IntegerProperty getIdProperty() {
-        return idProperty;
-    }
-
-    public void setIdProperty(IntegerProperty idProperty) {
-        this.idProperty = idProperty;
-    }
-
-    public StringProperty getNomeProperty() {
-        return nomeProperty;
-    }
-
-    public void setNomeProperty(StringProperty nomeProperty) {
-        this.nomeProperty = nomeProperty;
-    }
-
-    public StringProperty getFoneProperty() {
-        return foneProperty;
-    }
-
-    public void setFoneProperty(StringProperty foneProperty) {
-        this.foneProperty = foneProperty;
-    }
-
-    public StringProperty getLoginProperty() {
-        return loginProperty;
-    }
-
-    public void setLoginProperty(StringProperty loginProperty) {
-        this.loginProperty = loginProperty;
-    }
-
-    public StringProperty getSenhaProperty() {
-        return senhaProperty;
-    }
-
-    public void setSenhaProperty(StringProperty senhaProperty) {
-        this.senhaProperty = senhaProperty;
-    }
-
-    public StringProperty getPerfilProperty() {
-        return perfilProperty;
-    }
-
-    public void setPerfilProperty(StringProperty perfilProperty) {
-        this.perfilProperty = perfilProperty;
-    }
-    
-    
 
 }

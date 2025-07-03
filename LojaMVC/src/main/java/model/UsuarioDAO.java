@@ -12,12 +12,13 @@ public class UsuarioDAO extends GenericDAO {
     // Método para salvar usuarios
     public void salvar(Usuario usuario) throws SQLException {
         String insert = "INSERT INTO USUARIOS(nome, fone, login, senha, perfil, email, aniversario) VALUES(?,?,?,?,?,?,?)";
-          save(insert, usuario.getNome(), usuario.getFone(), usuario.getLogin(), usuario.getSenha(), usuario.getPerfil(), usuario.getEmail(), usuario.getAniversario());
+          save(insert, usuario.getNome(), usuario.getFone(), usuario.getLogin(), usuario.getSenha(), usuario.getPerfil(),
+                  usuario.getEmail(), usuario.getAniversario());
     }
 
     // Método para alterar usuarios
     public void alterar(Usuario usuario) throws SQLException {
-        String update = "UPDATE USUARIOS " + "SET nome = ?, fone = ?, login = ?, senha = ?, perfil = ?, email = ?, aniversario = ? "
+        String update = "UPDATE USUARIOS " + "SET nome = ?, fone = ?, login = ?, senha = ?, perfil = ?, email = ?, aniversario = ?"
                 + "WHERE ID = ?";
 		update(update, usuario.getId(), usuario.getNome(), usuario.getFone(), usuario.getLogin(),
 				usuario.getSenha(), usuario.getPerfil(), usuario.getEmail(), usuario.getAniversario());
@@ -38,17 +39,9 @@ public class UsuarioDAO extends GenericDAO {
         ResultSet rs = pstm.executeQuery();
 
         while (rs.next()) {
-            Usuario usuario = new Usuario();
-            usuario.setId(rs.getInt("id"));
-            usuario.setNome(rs.getString("nome"));
-            usuario.setFone(rs.getString("fone"));
-            usuario.setLogin(rs.getString("login"));
-            usuario.setSenha(rs.getString("senha"));
-            usuario.setPerfil(rs.getString("perfil"));
-            usuario.setEmail(rs.getString("email"));
-            LocalDate data = LocalDate.parse(rs.getString("aniversario"));
-            usuario.setAniversario(data);
-
+           LocalDate dataAniver = LocalDate.parse(rs.getString("aniversario")); 
+           Usuario usuario = new Usuario(rs.getInt("id"),rs.getString("nome"),rs.getString("fone"),rs.getString("login"),rs.getString("senha"),
+                    rs.getString("perfil"), rs.getString("email"), dataAniver);
             lista.add(usuario);
         }
 
@@ -74,8 +67,9 @@ public class UsuarioDAO extends GenericDAO {
             usuario.setSenha(rs.getString("senha"));
             usuario.setPerfil(rs.getString("perfil"));
             usuario.setEmail(rs.getString("email"));
-            LocalDate data = LocalDate.parse(rs.getString("aniversario"));
-            usuario.setAniversario(data);
+            LocalDate dataAniver = LocalDate.parse(rs.getString("aniversario"));
+            usuario.setAniversario(dataAniver);
+            
         }
 
         rs.close();

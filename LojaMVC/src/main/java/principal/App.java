@@ -12,22 +12,25 @@ import java.io.IOException;
 import java.net.URL;
 
 public class App extends Application {
-
+    
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle("Loja MVC");
+        stage.setTitle("Login");
+        
         URL url = new File("src/main/java/view/Login.fxml").toURI().toURL();
         FXMLLoader loader = new FXMLLoader(url);
-        Parent root = loader.load();
+        
+        Parent root =loader.load();
+        
         Stage telaLogin = new Stage();
         LoginController lc = loader.getController();
         lc.setStage(telaLogin);
         telaLogin.setOnShown(event -> {
             lc.abrirJanela();
         });
-        Scene scene = new Scene (root);
-        scene.getStylesheets().add(getClass().getResource(""
-                + "/css/login.css").toExternalForm());
+        
+        Scene scene = new Scene(root);
+        
         telaLogin.setScene(scene);
         telaLogin.show();
     }
