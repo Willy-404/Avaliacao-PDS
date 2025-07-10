@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `lojabd` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `lojabd`;
 -- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
 -- Host: localhost    Database: lojabd
@@ -18,59 +16,60 @@ USE `lojabd`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cliente`
+-- Table structure for table `clientes`
 --
 
-DROP TABLE IF EXISTS `cliente`;
+DROP TABLE IF EXISTS `clientes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cliente` (
+CREATE TABLE `clientes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
-  `telefone` varchar(25) DEFAULT NULL,
+  `telefone` varchar(20) DEFAULT NULL,
   `endereco` varchar(255) DEFAULT NULL,
-  `dataNascimento` date DEFAULT NULL,
+  `data_nascimento` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cliente`
+-- Dumping data for table `clientes`
 --
 
-LOCK TABLES `cliente` WRITE;
-/*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
+LOCK TABLES `clientes` WRITE;
+/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (1,'João Pedro','47858585898','Rua Clara Schmitz, 93','2007-01-25');
+/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `itemvenda`
+-- Table structure for table `item_venda`
 --
 
-DROP TABLE IF EXISTS `itemvenda`;
+DROP TABLE IF EXISTS `item_venda`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `itemvenda` (
+CREATE TABLE `item_venda` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `vendaID` int DEFAULT NULL,
-  `produtoID` int DEFAULT NULL,
-  `quant` int NOT NULL,
-  `precoUnidade` decimal(10,2) NOT NULL,
+  `venda_id` int DEFAULT NULL,
+  `produto_id` int DEFAULT NULL,
+  `quantidade` int NOT NULL,
+  `preco_unitario` decimal(10,2) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_idx` (`vendaID`),
-  KEY `idProd_idx` (`produtoID`),
-  CONSTRAINT `idProd` FOREIGN KEY (`produtoID`) REFERENCES `produto` (`idProd`),
-  CONSTRAINT `idVenda` FOREIGN KEY (`vendaID`) REFERENCES `venda` (`idvenda`)
+  KEY `venda_id` (`venda_id`),
+  KEY `produto_id` (`produto_id`),
+  CONSTRAINT `item_venda_ibfk_1` FOREIGN KEY (`venda_id`) REFERENCES `venda` (`id`),
+  CONSTRAINT `item_venda_ibfk_2` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `itemvenda`
+-- Dumping data for table `item_venda`
 --
 
-LOCK TABLES `itemvenda` WRITE;
-/*!40000 ALTER TABLE `itemvenda` DISABLE KEYS */;
-/*!40000 ALTER TABLE `itemvenda` ENABLE KEYS */;
+LOCK TABLES `item_venda` WRITE;
+/*!40000 ALTER TABLE `item_venda` DISABLE KEYS */;
+/*!40000 ALTER TABLE `item_venda` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -81,11 +80,11 @@ DROP TABLE IF EXISTS `produto`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `produto` (
-  `idProd` int NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(105) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(100) NOT NULL,
   `valor` decimal(10,2) NOT NULL,
-  `quantEstoque` int NOT NULL,
-  PRIMARY KEY (`idProd`)
+  `quantidade_estoque` int NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -112,9 +111,11 @@ CREATE TABLE `usuarios` (
   `login` varchar(15) NOT NULL,
   `senha` varchar(15) NOT NULL,
   `perfil` varchar(10) NOT NULL,
+  `email` varchar(45) NOT NULL,
+  `aniversario` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login_UNIQUE` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -123,7 +124,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'leonardo','47 0000','leoleo','1234','adm'),(2,'jair se acostumando','36 0000','Jair','2345','usuario');
+INSERT INTO `usuarios` VALUES (1,'Fulano','234234','fulano','1234','admin','',NULL),(2,'Beltrano','234234243','beltrano','1234','user','',NULL),(3,'João Pedro ','4758585858','joao','123456','user','joao90090','2004-05-20');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,13 +136,13 @@ DROP TABLE IF EXISTS `venda`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `venda` (
-  `idvenda` int NOT NULL AUTO_INCREMENT,
-  `dataCompra` date NOT NULL,
-  `valorTotal` decimal(10,2) NOT NULL,
-  `clienteID` int DEFAULT NULL,
-  PRIMARY KEY (`idvenda`),
-  KEY `id_idx` (`clienteID`),
-  CONSTRAINT `id` FOREIGN KEY (`clienteID`) REFERENCES `cliente` (`id`)
+  `id` int NOT NULL AUTO_INCREMENT,
+  `data_compra` date NOT NULL,
+  `valor_total` decimal(10,2) DEFAULT NULL,
+  `cliente_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cliente_id` (`cliente_id`),
+  CONSTRAINT `venda_ibfk_1` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -163,4 +164,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-05 11:07:44
+-- Dump completed on 2025-06-05 11:47:58
