@@ -13,6 +13,7 @@ controller\ListagemUsuariosController.class
 model\UsuarioDAO.class
 model\ClienteDAO.class
 controller\CadastroUsuariosController.class
+model\Venda.class
 controller\PrincipalController.class
 principal\App.class
 controller\ProdutoViewController.class
@@ -21,4 +22,5 @@ dal\ConexaoBD.class
 controller\ItemVendaController.class
 util\Validacoes.class
 model\ProdutoDAO.class
+model\VendaDAO.class
 util\AlertaUtil.class

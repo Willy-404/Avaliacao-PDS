@@ -34,6 +34,7 @@ public class App extends Application {
                 + "/css/login.css").toExternalForm());
         telaLogin.setScene(scene);
         telaLogin.show();
+        telaLogin.setTitle("SLASH METENDO SAMPLEY DE GUITARRA");
     }
 
     public static void main(String[] args) throws SQLException {
